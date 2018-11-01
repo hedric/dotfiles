@@ -1,0 +1,7 @@
+To disable mouse-acceleration add the file in xorg.conf.d folder to /etc/X11/
+
+To change the mouse speed without acceleration, simply use libinput, by installing xinput.
+
+xinput list // to find device id.
+xinput set-prop 8 "Coordinate Transformation Matrix" 2.2 0 0 0 2.2 0 0 0 1 // labba med 2.2 och 2.2...
+
