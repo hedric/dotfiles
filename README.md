@@ -1,2 +1,2 @@
 # dotfiles
-My precious dotfiles, shamelessly stolen and edited to my own taste.
+My dotfiles, shamelessly stolen and edited to my own taste.
