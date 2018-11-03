@@ -1,2 +1,2 @@
 # dotfiles
-My dotfiles, shamelessly stolen and edited to my own taste.
+My dotfiles, inspiration taken from other vim wizards, edited to my own taste.
