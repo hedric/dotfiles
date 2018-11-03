@@ -1,2 +1,4 @@
 # dotfiles
-My dotfiles, inspiration taken from other vim wizards, edited to my own taste.
+My dotfiles. 
+
+.vimrc: Inspiration taken from other vim wizards, edited to my own taste.
