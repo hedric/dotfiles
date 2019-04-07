@@ -6,6 +6,7 @@
 
 * set correct permissions for sudoers file by inputting
 	- chmod 0440 /etc/sudoers
+	- usermod -aG sudo username
 
 * exit and shutdown system completely
 * open term and try sudo echo "Hello Linux World!"
