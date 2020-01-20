@@ -1,7 +1,9 @@
 syntax on
 set background=dark
 colorscheme jellybeans
+
 set number
+set rnu
 
 set t_Co=256
 
