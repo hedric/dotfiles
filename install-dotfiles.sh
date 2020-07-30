@@ -6,8 +6,8 @@
 
 set -e
 
+
 # Function for creating home symlinks.
-#
 # Usage: make_home_symlink path_to_file filname_of_file_in_home_to_symlink_to
 make_home_symlink() {
     if [ -z "$1" ]; then
@@ -46,20 +46,36 @@ make_home_symlink() {
 
 echo "Creating symlinks..."
 
-mkdir -p "$HOME/.config"
-
 # Create vim config dir
 mkdir -p "$HOME/.vim"
 mkdir -p ~/.vim/autoload ~/.vim/bundle ~/.vim/colors
 
-# Symlink this repos .vimrc into ~/.vim/.vimrc
-make_home_symlink ".vimrc" ".vim/vimrc" 
+# User should pass nvim or vim when executing script
+if [ "$1" = "nvim" ]; then
+		echo "Installing nvim configuration..."
+		mkdir -p $HOME/.config/nvim
+		make_home_symlink "init.vim" ".config/nvim/init.vim"
 
-dotfiles=".vimrc .tmux.conf"
-for dotfile in $dotfiles; do
-    make_home_symlink "$dotfile"
-done
+		dotfiles=".tmux.conf"
+		for dotfile in $dotfiles; do
+			make_home_symlink "$dotfile"
+		done
 
+elif [ "$1" = "vim" ] ; then
+		
+		echo "Installing vim configuration..."
+		# Symlink this repos .vimrc into ~/.vim/.vimrc
+		make_home_symlink ".vimrc" ".vim/vimrc" 
+
+		dotfiles=".vimrc .tmux.conf"
+		for dotfile in $dotfiles; do
+			make_home_symlink "$dotfile"
+		done
+
+else
+		>&2 echo "User should pass vim or nvim as input arg..."
+		exit 1
+fi
 
 
 
