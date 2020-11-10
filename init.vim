@@ -1,5 +1,5 @@
 " Neovim config 
-"set nocompatible
+set nocompatible
 
 call plug#begin()
 Plug 'neoclide/coc.nvim', {'branch': 'release'}

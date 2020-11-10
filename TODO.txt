@@ -7,7 +7,7 @@ TODO for dotfiles:
 5. Setup CoC with Yocto and in general
 6. Setup fzf to open to the right in nvim
 7. Setup macro for vim=nvim
-
+8. Setup vim to show whitespaces
 
 
 
