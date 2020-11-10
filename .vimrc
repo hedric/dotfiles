@@ -42,7 +42,7 @@ nnoremap <Space> <Nop>
 
 " Source configs
 " source $HOME/.config/nvim/plug-config/coc.vim
-source $HOME/.config/nvim/plug-config/fzf.vim
+" source $HOME/.vim/plugged/fzf.vim
 
 "" Gruvbox theme-settings below
 set t_Co=256
@@ -53,7 +53,7 @@ let g:gruvbox_invert_selection = 0
 
 colorscheme gruvbox
 set background=dark
-set termguicolors
+"set termguicolors
 
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#whitespace#enabled = 1
@@ -127,8 +127,8 @@ let g:webdevicons_enable_airline_tabline = 1
 map <C-f> :Files<CR>
 
 " GoTo code navigation
-nmap <buffer> <leader>gd <Plug>(coc-definition)
-nmap <buffer> <leader>gr <Plug>(coc-references)
+"nmap <buffer> <leader>gd <Plug>(coc-definition)
+"nmap <buffer> <leader>gr <Plug>(coc-references)
 
 " Buffer movement bindings
 nmap gn :bn<CR>
