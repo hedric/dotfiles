@@ -4,8 +4,18 @@
 # Credits to Pajlada for this this script!
 # https://github.com/pajlada/
 
-set -e
+# TODO
+# 1. Let script install dev essentials, also for Yocto.
+# 2. Let script install zsh and oh-my-zsh including plugins
+# 3. Let script install fzf and vimplug (junegunn)
+# 4. Let script install custom zshrc, add aliases
+# 5. Let script install neovim, build from source and install latest stable
+# 6. Let script install light-weight term emulator.
+#
+# Goal is to have this script to run on a new dev machine...
+# 
 
+set -e
 
 # Function for creating home symlinks.
 # Usage: make_home_symlink path_to_file filname_of_file_in_home_to_symlink_to
