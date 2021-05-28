@@ -11,30 +11,35 @@ Plug 'sainnhe/gruvbox-material'
 "Plug 'https://github.com/joshdick/onedark.vim.git'
 "Plug 'vim-airline/vim-airline'
 "Plug 'vim-airline/vim-airline-themes'
-"Plug 'airblade/vim-rooter'
+Plug 'airblade/vim-rooter'
 "Plug 'tomasiser/vim-code-dark'
 "Plug 'arcticicestudio/nord-vim'
 "Plug 'yggdroot/indentline'
 Plug 'NLKNguyen/papercolor-theme'
-"Plug 'mrkn/mrkn256'
+Plug 'vimoxide/vim-cinnabar'
+Plug '1612492/github.vim'
 call plug#end()
 
 syntax on
 filetype plugin indent on
 
+" Fix slow escape
+set timeoutlen=1000
+set ttimeoutlen=0
+
 " show existing tab with 2 spaces width
 set tabstop     =2
 set softtabstop =2
 set shiftwidth  =2
-"set expandtab
+set expandtab
 
 " Give more space for displaying messages
 set cmdheight=2
 
 " Lower the update time (default = 4000ms )
-set updatetime=50
-set colorcolumn=80
-highlight ColorColumn ctermbg=0 guibg=lightgrey
+" set updatetime=50
+" set colorcolumn=80
+" highlight ColorColumn ctermbg=0 guibg=lightgrey
 
 
 let g:python3_host_prog = '/usr/bin/python3'
@@ -48,15 +53,16 @@ nnoremap <Space> <Nop>
 "source $HOME/.config/nvim/plug-config/fzf.vim
 
 "" Gruvbox theme-settings below
-"set t_Co=256
 "set t_ut=
 "let g:gruvbox_termcolors='256'
 "let g:gruvbox_contrast_dark='hard'
 "let g:gruvbox_invert_selection = 0
 
+"colorscheme PaperColor
+" set termguicolors
+colorscheme PaperColor
+set t_Co=256
 set background=dark
-colorscheme mrkn256
-"set termguicolors
 
 "let g:airline_powerline_fonts = 1
 "let g:airline#extensions#whitespace#enabled = 1
@@ -127,7 +133,7 @@ let g:webdevicons_enable_airline_tabline = 1
 "inoremap {{ {}<left>
 "inoremap {{<CR> {<CR>}<ESC>O
 "inoremap {{;<CR> {<CR>};<ESC>O
-map <C-f> :Files<CR>
+map <C-f> :ProjectFiles<CR>
 
 " GoTo code navigation
 "nmap <buffer> <leader>gd <Plug>(coc-definition)
@@ -170,6 +176,14 @@ nnoremap N Nzz
 " Ctags
 set autochdir
 set tags=tags;/
+
+" Make fzf inside of vim to always find from git root
+function! s:find_git_root()
+	return system('git rev-parse --show-toplevel 2> /dev/null')[:-2]
+endfunction
+
+command! ProjectFiles execute 'Files' s:find_git_root()
+
 
 " Some conflict coloring
 "function! ConflictsHighlight() abort
