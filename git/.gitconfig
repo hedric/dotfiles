@@ -1,7 +1,0 @@
-[user]
-	email = richard.hedlund@crosscontrol.com
-	name = Richard Hedlund
-[core]
-	editor = nvim
-[url "git@git.cci-net.de:apa"]
-	insteadOf = https://git.cci-net.de/apa
