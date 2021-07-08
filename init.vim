@@ -1,203 +1,231 @@
-" Neovim config 
+" Neovim configuration
+
+let mapleader = "\<Space>"
+" =============================================================================
+" # PLUGINS
+" =============================================================================
 set nocompatible
+filetype off
 
 call plug#begin()
-"Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'tpope/vim-fugitive'
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
-Plug 'gruvbox-community/gruvbox'
-Plug 'sainnhe/gruvbox-material'
-"Plug 'https://github.com/joshdick/onedark.vim.git'
-"Plug 'vim-airline/vim-airline'
-"Plug 'vim-airline/vim-airline-themes'
-Plug 'airblade/vim-rooter'
-"Plug 'tomasiser/vim-code-dark'
-"Plug 'arcticicestudio/nord-vim'
-"Plug 'yggdroot/indentline'
+
+" Colorschemes
 Plug 'NLKNguyen/papercolor-theme'
-Plug 'vimoxide/vim-cinnabar'
-Plug '1612492/github.vim'
+Plug 'CreaturePhil/vim-handmade-hero'
+Plug 'morhetz/gruvbox'
+Plug 'tomasiser/vim-code-dark'
+Plug 'shaunsingh/nord.nvim'
+Plug 'christianchiarulli/nvcode-color-schemes.vim'
+Plug 'drsooch/gruber-darker-vim'
+
+" Conqueror of Completion
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+"
+"Treesitter
+"Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+"Plug 'nvim-treesitter/playground'
+
+" Statusbar / Lightline
+Plug 'itchyny/lightline.vim'
+
+" Fuzzy finder
+Plug 'airblade/vim-rooter'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+
+" Comment out convenience
+Plug 'tpope/vim-commentary'
+
 call plug#end()
-
-syntax on
-filetype plugin indent on
-
-" Fix slow escape
-set timeoutlen=1000
-set ttimeoutlen=0
-
-" show existing tab with 2 spaces width
-set tabstop     =2
-set softtabstop =2
-set shiftwidth  =2
-set expandtab
-
-" Give more space for displaying messages
-set cmdheight=2
-
-" Lower the update time (default = 4000ms )
-" set updatetime=50
-" set colorcolumn=80
-" highlight ColorColumn ctermbg=0 guibg=lightgrey
-
 
 let g:python3_host_prog = '/usr/bin/python3'
 let g:python_host_prog = '/usr/bin/python2'
 
-let mapleader=" "
-nnoremap <Space> <Nop>
-
-" Source configs
-"source $HOME/.config/nvim/plug-config/coc.vim
-"source $HOME/.config/nvim/plug-config/fzf.vim
-
-"" Gruvbox theme-settings below
-"set t_ut=
-"let g:gruvbox_termcolors='256'
+" Colorscheme
+"let g:gruvbox_invert_selection=0
 "let g:gruvbox_contrast_dark='hard'
-"let g:gruvbox_invert_selection = 0
-
-"colorscheme PaperColor
-" set termguicolors
-colorscheme PaperColor
-set t_Co=256
+set termguicolors
 set background=dark
+colorscheme GruberDarker
 
-"let g:airline_powerline_fonts = 1
-"let g:airline#extensions#whitespace#enabled = 1
-"let g:airline#extensions#whitespace#symbol = '!'
-"let g:airline#extensions#whitespace#checks =
-"			\  [ 'indent', 'trailing', 'mixed-indent-file', 'conflicts' ]
-"
-"if !exists('g:airline_symbols')
-"	let g:airline_symbols = {}
-"endif
-"
-""let g:airline_extensions = ['branch', 'hunks', 'coc', 'tabline']
-"
-"" Disable tabline close button
-"let g:airline#extensions#tabline#enabled = 1
-"let g:airline#extensions#tabline#show_close_button = 0
-"let g:airline#extensions#tabline#show_tab_type = 0
-"let g:airline#extensions#tabline#show_tab_nr = 0
-"let g:airline#extensions#tabline#fnamecollapse = 1
-"
-"
-"let g:airline#extensions#tabline#buffers_label = ''
-"let g:airline#extensions#tabline#tabs_label = ''
-""let g:airline#extensions#coc#enabled = 1
-"
-"" Just show the file name
-"let g:airline#extensions#tabline#fnamemod = ':t'
-"
-"" enable powerline fonts
-"let g:airline_powerline_fonts = 1
-"let g:airline_left_sep = ''
-"let g:airline_right_sep = ''
-"let g:airline_right_alt_sep = ''
-"
-"let g:airline#extensions#tabline#formatter = 'unique_tail'
-"
-"let g:airline#extensions#default#layout = [['a', 'b', 'c'], ['x', 'z', 'warning', 'error']]
-"" let g:airline_skip_empty_sections = 1
-"
-"let g:airline_section_c = airline#section#create([''])
-"let g:airline_section_z = airline#section#create(['linenr'])
-"
-"let g:indentline_char_list = ['|', '|', '|', '|']
-"
-"" Switch to your current theme
-"" let g:airline_theme = 'onedark'
-"
-"" Always show tabs
-"set showtabline=2
+" Ripgrep etc
+" from http://sheerun.net/2014/03/21/how-to-boost-your-vim-productivity/
+if executable('ag')
+	set grepprg=ag\ --nogroup\ --nocolor
+endif
+if executable('rg')
+	set grepprg=rg\ --no-heading\ --vimgrep
+	set grepformat=%f:%l:%c:%m
+endif
 
-" We don't need to see things like -- INSERT -- anymore
-"set noshowmode
-
-" Set cursorline
-set cursorline
-
-" Sections
-let g:airline_section_c = ''
-let g:airline_section_a = ""
-let g:airline_section_y = ''
-let g:webdevicons_enable_airline_tabline = 1
-
-" Mappings
-"inoremap "" ""<left>
-"inoremap '' ''<left>
-"inoremap (( ()<left>
-"inoremap [[ []<left>
-"inoremap {{ {}<left>
-"inoremap {{<CR> {<CR>}<ESC>O
-"inoremap {{;<CR> {<CR>};<ESC>O
-map <C-f> :ProjectFiles<CR>
-
-" GoTo code navigation
-"nmap <buffer> <leader>gd <Plug>(coc-definition)
-"nmap <buffer> <leader>gr <Plug>(coc-references)
-
-" Buffer movement bindings
-nmap gn :bn<CR>
-nmap gN :bp<CR>
-nmap gd :bd<CR>
-
-set wildmenu
-set mouse=a
-set rnu
-set nowrap
-set number
 set nohlsearch
+set mouse=a
+set number
+set nowrap
 
-" Disable highlight match parenthesis etc.
-let loaded_matchparen = 1
-set laststatus=2
+" Better display for messages
+set cmdheight=2
 
-" Incremental search. start searching and moving through the file while typing
-" the search phrase
-set incsearch
-set smartcase
+" You will have bad experience for diagnostic messages when it's default 4000.
+set updatetime=300
+
+" Open-hotkeys
+map <C-f> :ProjectFiles<CR>
+nmap <leader>; :Buffers<CR>
+
+" Quick-save
+nmap <leader>w :w<CR>
+
+" =============================================================================
+" # Editor settings
+" =============================================================================
+filetype plugin indent on
 set autoindent
-set smartindent
+set timeoutlen=300 " http://stackoverflow.com/questions/2158516/delay-before-o-opens-a-new-line
+set encoding=utf-8
+set scrolloff=2
+set noshowmode
+set hidden
+set nowrap
+set nojoinspaces
+let g:sneak#s_next = 1
+let g:vim_markdown_new_list_item_indent = 0
+let g:vim_markdown_auto_insert_bullets = 0
+let g:vim_markdown_frontmatter = 1
+set printfont=:h10
+set printencoding=utf-8
+set printoptions=paper:letter
 
-set signcolumn=no
+" Sane splits
+set splitright
+set splitbelow
 
-" Disable ex-mode
-nnoremap Q <Nop>
-nnoremap J j
-nnoremap K k
+" Permanent undo
+set undodir=~/.vimdid
+set undofile
 
-" Search to appear in middle of screen
-nnoremap n nzz
-nnoremap N Nzz
+" Decent wildmenu
+set wildmenu
+set wildmode=list:longest
+set wildignore=.hg,.svn,*~,*.png,*.jpg,*.gif,*.settings,Thumbs.db,*.min.js,*.swp,publish/*,intermediate/*,*.o,*.hi,Zend,vendor
 
-" Ctags
-set autochdir
-set tags=tags;/
+" TODO
+" Implement functions for quick-switching between tabs and spaces
+" Use leader key mapping?
 
-" Make fzf inside of vim to always find from git root
+" Use wide tabs
+set shiftwidth=4
+set softtabstop=4
+set tabstop=4
+set noexpandtab
+
+" Wrapping options
+set formatoptions=tc " wrap text and comments using textwidth
+set formatoptions+=r " continue comments when pressing ENTER in I mode
+set formatoptions+=q " enable formatting of comments with gq
+set formatoptions+=n " detect lists for formatting
+set formatoptions+=b " auto-wrap in insert mode, and do not wrap old long lines
+
+" Proper search
+set incsearch
+set ignorecase
+set smartcase
+set gdefault
+
+" Search results centered please
+nnoremap <silent> n nzz
+nnoremap <silent> N Nzz
+nnoremap <silent> * *zz
+nnoremap <silent> # #zz
+nnoremap <silent> g* g*zz
+
+"Cursorline
+set cursorline
+hi Cursorline cterm=NONE ctermbg=NONE guibg=Grey12
+
+" Ctrl+h to stop searching
+"vnoremap <C-h> :nohlsearch<cr>
+"nnoremap <C-h> :nohlsearch<cr>
+
+" Jump to start and end of line using the home row keys
+map H ^
+map L $
+
+" Neat X clipboard integration
+" ,p will paste clipboard into buffer
+" ,c will copy entire buffer into clipboard
+noremap <leader>p :read !xsel --clipboard --output<cr>
+noremap <leader>c :w !xsel -ib<cr><cr>
+
+" <leader>s for Rg search
+noremap <leader>g :Rg<CR>
+let g:fzf_layout = { 'down': '~20%' }
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --no-heading --color=always '.shellescape(<q-args>), 1,
+  \   <bang>0 ? fzf#vim#with_preview('up:60%')
+  \           : fzf#vim#with_preview('right:50%:hidden', '?'),
+  \   <bang>0)
+
+command! -bang -nargs=? -complete=dir Files call fzf#vim#files(<q-args>, <bang>0)
+command! -bang -nargs=? -complete=dir Buffers call fzf#vim#buffers(<q-args>, <bang>0)
+
+" Open new file adjacent to current file
+nnoremap <leader>e :e <C-R>=expand("%:p:h") . "/" <CR>
+
 function! s:find_git_root()
 	return system('git rev-parse --show-toplevel 2> /dev/null')[:-2]
 endfunction
 
 command! ProjectFiles execute 'Files' s:find_git_root()
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" Some conflict coloring
-"function! ConflictsHighlight() abort
-"	syn region conflictStart start=/^<<<<<<< .*$/ end=/^\ze\(=======$\||||||||\)/
-"	syn region conflictMiddle start=/^||||||| .*$/ end=/^\ze=======$/
-"	syn region conflictEnd start=/^\(=======$\||||||| |\)/ end=/^>>>>>>> .*$/
-"
-"	highlight conflictStart ctermbg=red ctermfg=black
-"	highlight conflictMiddle ctermbg=blue ctermfg=black
-"	highlight conflictEnd ctermbg=green cterm=bold ctermfg=black
-"endfunction
-"
-"augroup MyColors
-"	autocmd!
-"	autocmd BufEnter * call ConflictsHighlight()
-"augroup END
+" <leader><leader> toggles between buffers
+nnoremap <leader><leader> <c-^>
+
+" <leader>, shows/hides hidden characters
+nnoremap <leader>, :set invlist<cr>
+
+" <leader>q shows stats
+nnoremap <leader>q g<c-g>
+
+" Keymap for replacing up to next _ or -
+noremap <leader>m ct_
+
+" I can type :help on my own, thanks.
+map <F1> <Esc>
+imap <F1> <Esc>
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" <leader><leader> toggles between buffers
+nnoremap <leader><leader> <c-^>
+
+" <leader>, shows/hides hidden characters
+nnoremap <leader>, :set invlist<cr>
+
+" Keymap for replacing up to next _ or -
+noremap <leader>m ct_
+
+" I can type :help on my own, thanks.
+map <F1> <Esc>
+imap <F1> <Esc>
+
+" Help filetype detection
+autocmd BufRead Makefile.* set filetype=make
+
+" Treesitter stuff
+"lua <<EOF
+"require'nvim-treesitter.configs'.setup {
+"  ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
+"  highlight = {
+"    enable = true,              -- false will disable the whole extension
+"  },
+"}
+"EOF
+
+" Source config for Conqueror of Completion
+source $HOME/.config/nvim/plug-config/coc.vim
 
