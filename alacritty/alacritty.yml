@@ -3,17 +3,20 @@ env:
 
 font:
   normal:
-    style: Regular
+    family: Iosevka Nerd Font
+    style: Semi-Bold
 
   bold:
-    family: monospace
-    style: Regular
+    family: Iosevka Nerd Font
+    style: Bold
 
   italic:
-    style: Italic
+    family: Iosevka Nerd Font
+    style: Semi-Bold Italic
 
   bold_italic:
-    style: Regular Italic
+    family: Iosevka Nerd Font
+    style: Bold Italic
 
   # Point size
   size: 14.0
@@ -22,8 +25,9 @@ colors:
 
   # Default colors
   primary:
-    background: '0x20201d'
-    foreground: '0xa6a28c'
+    background: '0x111a1f'
+      #foreground: '0xa6a28c'
+    foreground: '0xa9a9a9'
 
   # Normal colors
   normal:
@@ -34,7 +38,7 @@ colors:
     blue:    '0x6684e1'
     magenta: '0xb854d4'
     cyan:    '0x1fad83'
-    white:   '0xa6a28c'
+    white:   '0xa9a9a9'
 
   # Bright colors
   bright:
@@ -57,7 +61,7 @@ colors:
 
   cursor:
     text: '0x20201d'
-    cursor: '0xa6a28c'
+    cursor: '0xa9a9a9'
 
 cursor:
     shape: Block

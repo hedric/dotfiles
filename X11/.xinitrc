@@ -7,7 +7,7 @@ xrandr --dpi 96
 # Keyboard repeat rate
 xset r rate 175 50
 
-# Turn of mouse acceleration
+# Turn off mouse acceleration
 xset m 1/1 0
 
 # Disable screensaver
@@ -35,13 +35,6 @@ nitrogen --restore &
 
 # Start compositor
 # picom &
-
-# Start sxhk demon
-#sxhkd &
-
-# Start window manager
-#exec bspwm 2> .logs/bspwm.err > .logs/bspwm.log
-#
 
 # Start i3
 exec i3 --shmlog-size=26214400
