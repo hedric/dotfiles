@@ -17,13 +17,25 @@ require('packer').startup(function(use)
   use 'ryanoasis/vim-devicons'
   use 'hedric/nvim-solarized-lua'
   use 'tpope/vim-surround'
- use 'lukas-reineke/indent-blankline.nvim'
+  use 'lukas-reineke/indent-blankline.nvim'
 
   use 'nvim-lua/plenary.nvim'
   use 'jakemason/ouroboros'
 
   -- LSP
   use 'neovim/nvim-lspconfig'
+
+  -- Completion
+  use 'neovim/nvim-lspconfig'
+  use 'hrsh7th/cmp-nvim-lsp'
+  use 'hrsh7th/cmp-buffer'
+  use 'hrsh7th/cmp-path'
+  use 'hrsh7th/cmp-cmdline'
+  use 'hrsh7th/nvim-cmp'
+
+  -- Snippets
+  use 'hrsh7th/cmp-vsnip'
+  use 'hrsh7th/vim-vsnip'
 
   -- Colorschemes
   use 'marko-cerovac/material.nvim'
@@ -61,7 +73,6 @@ vim.o.termguicolors = true
 vim.o.background = 'dark'
 
 -- Onedark colorscheme config
--- Remember to TSInstall comment for TODO/NOTE/WARNING highlighting
 require('onedark').setup {
     style = 'darker',
     
@@ -73,6 +84,8 @@ require('onedark').setup {
     colors = {
         green = '#3DCC98'
     },
+    -- Remember to "TSInstall comment"
+    -- for TODO/NOTE/WARNING highlighting
     highlights = {
         TSNote = {fg = '$red', fmt = 'bold'},
         TSWarning = {fg = '$red', fmg = 'bold'}
@@ -155,6 +168,9 @@ vim.keymap.set('n', '<leader>w', ':w<CR>', opts)
 vim.keymap.set('n', '<leader>,', ':set invlist<CR>', opts)
 vim.keymap.set('n', '<leader>r', ':source $MYVIMRC<CR>', opts)
 vim.keymap.set('n', '<leader>q', ':q<CR>', opts)
+-- Rebind annoying record with q to Q
+vim.keymap.set('n', 'Q', 'q', opts)
+vim.keymap.set('n', 'q', '<Nop>', opts)
 
 -- Clipboard
 vim.keymap.set({'n','x'}, 'cp', '"+y')
@@ -168,6 +184,20 @@ vim.keymap.set('n', '<c-f>', ':Telescope find_files<CR>', opts)
 vim.keymap.set('n', '<leader>g', ':Telescope live_grep<CR>', opts)
 vim.keymap.set('n', '<leader>b', ':Telescope buffers<CR>', opts)
 vim.keymap.set('n', '<leader>f', ':Telescope git_status<CR>', opts)
+
+-- Treesitter
+require('nvim-treesitter.configs').setup{
+    ensure_installed = { "c", "cpp", "lua", "python", "bash" },
+
+    sync_install = false,
+    auto_isntall = true,
+    ignore_install = { "javascript" },
+
+    highlight = {
+        enable = true,
+        additional_vim_regex_highlighting = false,
+    },
+}
 
 -- LSP stuff
 vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, opts)
@@ -196,24 +226,21 @@ local on_attach = function(client, bufnr)
   vim.keymap.set('n', '<space>f', vim.lsp.buf.formatting, bufopts)
 end
 
-local lsp_flags = {
-  -- This is the default in Nvim 0.7+
-  debounce_text_changes = 150,
-}
-require('lspconfig')['clangd'].setup{
+require('lspconfig')['clangd'].setup{}
+require('lspconfig')['pyright'].setup{}
+
+-- Use a loop to conveniently call 'setup' on multiple servers and
+-- map buffer local keybindings when the language server attaches
+local servers = { 'pyright', 'clangd' }
+for _, lsp in pairs(servers) do
+  require('lspconfig')[lsp].setup {
     on_attach = on_attach,
-    flags = lsp_flags,
-}
+    flags = {
+      -- This will be the default in neovim 0.7+
+      debounce_text_changes = 150,
+    }
+  }
+end
 
-require('nvim-treesitter.configs').setup{
-    ensure_installed = { "c", "cpp", "lua", "python", "bash" },
-
-    sync_install = false,
-    auto_isntall = true,
-    ignore_install = { "javascript" },
-
-    highlight = {
-        enable = true,
-        additional_vim_regex_highlighting = false,
-    },
-}
+-- Nvim-cmp
+require('nvim-cmp')
