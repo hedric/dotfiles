@@ -17,7 +17,7 @@ require('packer').startup(function(use)
   use 'ryanoasis/vim-devicons'
   use 'hedric/nvim-solarized-lua'
   use 'tpope/vim-surround'
--- use 'lukas-reineke/indent-blankline.nvim'
+ use 'lukas-reineke/indent-blankline.nvim'
 
   use 'nvim-lua/plenary.nvim'
   use 'jakemason/ouroboros'
@@ -28,7 +28,6 @@ require('packer').startup(function(use)
   -- Colorschemes
   use 'marko-cerovac/material.nvim'
   use 'rebelot/kanagawa.nvim'
--- use 'joshdick/onedark.vim'
   use 'navarasu/onedark.nvim'
 
   -- Treesitter
@@ -97,9 +96,10 @@ require('colorizer').setup {}
 -- Formatter
 vim.opt.list = false
 vim.opt.listchars:append("eol:↴")
--- require('indent_blankline').setup {
--- show_end_of_line = false,
--- }
+
+require('indent_blankline').setup {
+    show_end_of_line = false,
+}
 
 vim.g.indent_blankline_char = '¦'
 
