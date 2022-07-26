@@ -1,4 +1,6 @@
+-- Neovim configuration
 
+-- Auto install packer
 local fn = vim.fn
 local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
 if fn.empty(fn.glob(install_path)) > 0 then
@@ -7,9 +9,6 @@ if fn.empty(fn.glob(install_path)) > 0 then
 end
 
 require('packer').startup(function(use)
-  -- My plugins here
-  -- use 'foo1/bar1.nvim'
-  -- use 'foo2/bar2.nvim'
   use 'wbthomason/packer.nvim'
   use 'chrisbra/vim-commentary'
   use 'nvim-lualine/lualine.nvim'
@@ -29,7 +28,8 @@ require('packer').startup(function(use)
   -- Colorschemes
   use 'marko-cerovac/material.nvim'
   use 'rebelot/kanagawa.nvim'
-  use 'joshdick/onedark.vim'
+-- use 'joshdick/onedark.vim'
+  use 'navarasu/onedark.nvim'
 
   -- Treesitter
   use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}
@@ -58,16 +58,33 @@ vim.keymap.set('t', '<Esc>', '<C-\\><C-n>')
 -- Global statusline
 vim.opt.laststatus = 3
 
--- Color theme
 vim.o.termguicolors = true
 vim.o.background = 'dark'
--- vim.g.solarized_italics = 0
-vim.cmd('colorscheme kanagawa')
+
+-- Onedark colorscheme config
+-- Remember to TSInstall comment for TODO/NOTE/WARNING highlighting
+require('onedark').setup {
+    style = 'darker',
+    
+    -- Remove italic comments
+    code_style = {
+        comments = 'none'
+    },
+
+    colors = {
+        green = '#3DCC98'
+    },
+    highlights = {
+        TSNote = {fg = '$red', fmt = 'bold'},
+        TSWarning = {fg = '$red', fmg = 'bold'}
+    }
+}
+require('onedark').load()
 
 -- Lualine
 require('lualine').setup({
     options = {
-        theme = 'material',
+        theme = 'onedark',
         icons_enabled = false,
         section_separators = '',
         component_separators = ''
