@@ -1,0 +1,77 @@
+[env]
+TERM = "xterm-256color"
+
+[font]
+size = 14
+
+  [font.normal]
+  family = "Iosevka Nerd Font"
+  style = "Semi-Bold"
+
+  [font.bold]
+  family = "Iosevka Nerd Font"
+  style = "Bold"
+
+  [font.italic]
+  family = "Iosevka Nerd Font"
+  style = "Semi-Bold Italic"
+
+  [font.bold_italic]
+  family = "Iosevka Nerd Font"
+  style = "Bold Italic"
+
+[colors.primary]
+background = "0x070e12"
+foreground = "0xa9a9a9"
+
+[colors.normal]
+black = "0x20201d"
+red = "0xd73737"
+green = "0x60ac39"
+yellow = "0xae9513"
+blue = "0x6684e1"
+magenta = "0xb854d4"
+cyan = "0x1fad83"
+white = "0xa9a9a9"
+
+[colors.bright]
+black = "0x7d7a68"
+red = "0xd73737"
+green = "0x60ac39"
+yellow = "0xae9513"
+blue = "0x6684e1"
+magenta = "0xb854d4"
+cyan = "0x1fad83"
+white = "0xfefbec"
+
+ ##[[colors.bright.indexed_colors]]
+ ## index = 16
+ ## color = "0xb65611"
+
+ ## [[colors.bright.indexed_colors]]
+ ## index = 17
+ ## color = "0xd43552"
+
+ ## [[colors.bright.indexed_colors]]
+ ## index = 18
+ ## color = "0x292824"
+
+ ## [[colors.bright.indexed_colors]]
+ ## index = 19
+ ## color = "0x6e6b5e"
+
+ ## [[colors.bright.indexed_colors]]
+ ## index = 20
+ ## color = "0x999580"
+
+ ## [[colors.bright.indexed_colors]]
+ ## index = 21
+ ## color = "0xe8e4cf"
+
+[colors.cursor]
+text = "0x20201d"
+cursor = "0xa9a9a9"
+
+#[cursor]
+#shape = "Block"
+#blinking = "Off"
