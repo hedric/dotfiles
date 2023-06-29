@@ -28,7 +28,7 @@ setxkbmap -option 'grp:ctrl_alt_toggle'
 xsetroot -cursor_name left_ptr
 
 # Set mouse speed with no acceleration
-xinput set-prop 15 "Coordinate Transformation Matrix" 2.4 0 0 0 2.4 0 0 0 1
+# xinput set-prop 15 "Coordinate Transformation Matrix" 2.4 0 0 0 2.4 0 0 0 1
 
 # Set wallpaper restore
 nitrogen --restore &
