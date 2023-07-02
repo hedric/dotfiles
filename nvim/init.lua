@@ -158,12 +158,22 @@ require("lazy").setup {
     lazy = false, -- make sure we load this during startup if it is your main colorscheme
     priority = 1000, -- make sure to load this before all the other start plugins
     config = function()
-		require("tokyonight").setup({
-			style = 'night',})
+        require("tokyonight").setup({
+            style = 'night',
+            on_colors = function(colors)
+                colors.bg = "#0d0d0d"
+                colors.fg = "#b3b3b3"
+            end,
+            on_highlights = function(hl, c)
+                hl.CursorLine = {
+                    bg = "#1a1a1a",
+                }
+            end,
+        })
         -- load the colorscheme here
         vim.cmd([[colorscheme tokyonight]])
-        end,
-    },
+    end,
+},
     
     
     -- LSP Support
@@ -215,7 +225,7 @@ require("lazy").setup {
         build = ":TSUpdate",
         config = function()
             require("nvim-treesitter.configs").setup {
-                ensure_installed = { "c", "lua", "rust" },
+                ensure_installed = { "c", "lua", "rust", "bash"},
                 highlight = { enable = true, }
             }
         end 
