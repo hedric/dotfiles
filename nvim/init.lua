@@ -36,6 +36,9 @@ vim.opt.undofile = true
 vim.opt.scrolloff = 10
 vim.opt.updatetime = 50
 
+-- Telescope freeze otherwise
+vim.opt.paste = false
+
 
 -- Keybindings
 local keyopts = { noremap = true, silent = true}
