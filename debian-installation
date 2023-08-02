@@ -1,0 +1,39 @@
+Bookworm Debian 12 installation:
+
+sudo
+su root
+apt install sudo
+add user to /etc/sudoers
+
+build-essential
+git
+
+linux-firmware
+git clone https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git
+sudo make install
+
+wireless:
+sudo apt install iwd resolvconf
+systemctl --now disable wpa_supplicant
+systemctl --now enable iwd
+
+/etc/iwd/main.con
+EnableNetworkConfiguration=true
+NameResolvingService=resolvconf
+
+delete every file in /etc/X11
+copt .xinitrc to home folder
+
+now fix graphics kernel confusion dedicated graph + integrated:
+sudo vim /etc/default/grub
+add: "nouveau.modeset=0"
+
+fix sound
+sudo apt install alsa-utils pulseaudio
+reboot
+
+
+
+
+
+
