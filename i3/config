@@ -167,8 +167,8 @@ bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcu
 mode "resize" {
         # These bindings trigger as soon as you enter the resize mode
         bindsym h resize shrink width 10 px or 10 ppt
-        bindsym k resize grow height 10 px or 10 ppt
-        bindsym j resize shrink height 10 px or 10 ppt
+        bindsym k resize shrink height 10 px or 10 ppt
+        bindsym j resize grow height 10 px or 10 ppt
         bindsym l resize grow width 10 px or 10 ppt
 
         # same bindings, but for the arrow keys
@@ -194,15 +194,14 @@ bar {
 }
 
 # Dropdown/Scratchpad
- bindsym $mod+u [instance="dropdown"] scratchpad show; move position center
- bindsym $mod+Shift+u exec alacritty --class "dropdown"
-# 
- for_window [instance="dropdown"] floating enable
- for_window [instance="dropdown"] resize set 1600 1000
- for_window [instance="dropdown"] move scratchpad
-# 
+bindsym $mod+u [instance="dropdown"] scratchpad show; move position center
+bindsym $mod+Shift+u exec alacritty --class "dropdown"
+
+for_window [instance="dropdown"] floating enable
+for_window [instance="dropdown"] resize set 1600 1000
+for_window [instance="dropdown"] move scratchpad
+
 exec --no-startup-id alacritty --class "dropdown"
 
-# for_window[title="Path of Exile"] floating enable
-# for_window[title="Valheim"] floating enable
-
+# Application specific window settings
+for_window [title="Path of Exile"] floating enable
