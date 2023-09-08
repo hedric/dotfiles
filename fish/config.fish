@@ -16,3 +16,4 @@ alias gri='git rebase -i'
 alias gcv='git commit -v'
 alias gca='git commit --amend'
 
+set PATH $PATH ~/.cargo/bin
