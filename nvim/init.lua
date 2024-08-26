@@ -1,5 +1,9 @@
 -- Options
 
+-- Disable netrw because we are using nvim-tree
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+
 vim.opt.hlsearch = false
 vim.opt.ignorecase = true
 vim.opt.incsearch = true
@@ -36,9 +40,10 @@ vim.opt.undofile = true
 vim.opt.scrolloff = 10
 vim.opt.updatetime = 50
 
+vim.opt.list = true
+
 -- Telescope freeze otherwise
 vim.opt.paste = false
-
 
 -- Keybindings
 local keyopts = { noremap = true, silent = true}
@@ -64,9 +69,6 @@ vim.keymap.set('n', 'q', '<Nop>', keyopts)
 vim.keymap.set({'n','x'}, 'cp', '"+y')
 vim.keymap.set({'n','x'}, 'cv', '"+p')
 
--- Primagen
--- vim.keymap.set("x", "<leader>p", "\"_dP")
-
 -- Move lines up and down (Primagen)
 vim.keymap.set('v', 'K', ":m '<-2<CR>gv=gv", keyopts)
 vim.keymap.set('v', 'J', ":m '>+1<CR>gv=gv", keyopts)
@@ -90,111 +92,69 @@ vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
 require("lazy").setup {
-	{"tpope/vim-fugitive"},
-	{"chrisbra/vim-commentary"},
-	{ 'numToStr/Comment.nvim', opts = {} },
+    {"tpope/vim-fugitive"},
+    {"chrisbra/vim-commentary"},
+    { 'numToStr/Comment.nvim', opts = {} },
 
-	-- Colorscheme
-    {"blazkowolf/gruber-darker.nvim",
+    {"navarasu/onedark.nvim",
     enabled = true,
-        opts = {
-            bold = false,
-            italic = {
-                strings = false,
-            },
-        },
-
+    lazy = false, -- make sure we load this during startup if it is your main colorscheme
+    priority = 1000, -- make sure to load this before all the other start plugins
     config = function()
-        require("gruber-darker").setup({})
+        require("onedark").setup({
+            style = 'darker',
+            transparent = 'true',
+
+            code_style = {
+                comments = 'none'
+            },
+
+            colors = {
+                green = '#3DCC98',
+            },
+            -- Remember to "TSInstall comment"
+            -- for TODO/NOTE/WARNING highlighting
+            highlights = {
+                TSNote = {fg = '$red', fmt = 'bold'},
+                TSWarning = {fg = '$red', fmg = 'bold'}
+
+            },
+        })
         -- load the colorscheme here
-        vim.cmd([[colorscheme gruber-darker]])
+        vim.cmd([[colorscheme onedark]])
     end,
     },
-
-	{"navarasu/onedark.nvim",
-	enabled = false,
-	lazy = false, -- make sure we load this during startup if it is your main colorscheme
-	priority = 1000, -- make sure to load this before all the other start plugins
-	config = function()
-		require("onedark").setup({
-			style = 'darker',
-
-			code_style = {
-				comments = 'none'
-			},
-
-			colors = {
-				green = '#3DCC98'
-			},
-			-- Remember to "TSInstall comment"
-			-- for TODO/NOTE/WARNING highlighting
-			highlights = {
-				TSNote = {fg = '$red', fmt = 'bold'},
-				TSWarning = {fg = '$red', fmg = 'bold'}
-
-			},
-		})
-		-- load the colorscheme here
-		vim.cmd([[colorscheme onedark]])
-	end,
+    {"EdenEast/nightfox.nvim",
+    enabled = false,
+    lazy = false, -- make sure we load this during startup if it is your main colorscheme
+    priority = 1000, -- make sure to load this before all the other start plugins
+    config = function()
+        require("nightfox").setup({})
+        -- load the colorscheme here
+        vim.cmd([[colorscheme carbonfox]])
+    end,
     },
-
     {"nvim-lualine/lualine.nvim",
     opts = {
         options = {
             icons_enabled = false,
-            theme = 'tokyonight',
+            theme = 'onedark',
             component_separators = '|',
             section_separators = '',
             },
+        sections = {
+            lualine_a = {
+                {
+                    'mode',
+                    'searchcount',
+                    maxcount = 999,
+                    timeout = 500,
+                }
+            }
         },
     },
-
-	-- Inactive colorscheme
-    {"bluz71/vim-moonfly-colors",
-    enabled = false,
-    lazy = false, -- make sure we load this during startup if it is your main colorscheme
-    priority = 1000, -- make sure to load this before all the other start plugins
-    config = function()
-        -- load the colorscheme here
-        vim.cmd([[colorscheme moonfly]])
-        end,
     },
 
-    {"catppuccin/nvim",
-    as = "catppuccin",
-    enabled = false,
-    lazy = false, -- make sure we load this during startup if it is your main colorscheme
-    priority = 1000, -- make sure to load this before all the other start plugins
-    config = function()
-        -- load the colorscheme here
-        vim.cmd([[colorscheme catppuccin]])
-        end,
-    },
-
-    {"folke/tokyonight.nvim",
-    enabled = false,
-    lazy = false, -- make sure we load this during startup if it is your main colorscheme
-    priority = 1000, -- make sure to load this before all the other start plugins
-    config = function()
-        require("tokyonight").setup({
-            style = 'night',
-            on_colors = function(colors)
-                colors.bg = "#0d0d0d"
-                colors.fg = "#b3b3b3"
-            end,
-            on_highlights = function(hl, c)
-                hl.CursorLine = {
-                    bg = "#1a1a1a",
-                }
-            end,
-        })
-        -- load the colorscheme here
-        vim.cmd([[colorscheme tokyonight]])
-    end,
-},
-    
-    
     -- LSP Support
     {'VonHeikemen/lsp-zero.nvim',
     branch = 'v2.x',
@@ -223,7 +183,7 @@ require("lazy").setup {
             lsp.default_keymaps({buffer = bufnr})
             end)
             lsp.setup()
-            
+
             -- Autocompletion
             local cmp = require('cmp')
             cmp.setup({
@@ -235,31 +195,104 @@ require("lazy").setup {
                     ['<C-Space>'] = cmp.mapping.complete(),
                 }
             })
-        end 
+        end
     },
-    {'nvim-telescope/telescope.nvim', tag = '0.1.1',
-    dependencies = { 'nvim-lua/plenary.nvim' }
+    {'nvim-telescope/telescope.nvim', tag = '0.1.5',
+    dependencies = { 'nvim-lua/plenary.nvim' },
+    config = function()
+        require('telescope').setup {
+            defaults = {
+                file_sorter =  require'telescope.sorters'.get_fzy_sorter,
+                generic_sorter =  require'telescope.sorters'.get_fzy_sorter,
+            }
+        }
+    end
     },
     { "nvim-treesitter/nvim-treesitter",
         build = ":TSUpdate",
         config = function()
             require("nvim-treesitter.configs").setup {
-                ensure_installed = { "c", "lua", "rust", "bash"},
+                ensure_installed = { "cpp", "c", "lua", "rust", "bash", "vimdoc", "lua"},
                 highlight = { enable = true, }
             }
-        end 
+        end
     },
     {'windwp/nvim-autopairs',
         event = "InsertEnter",
         opts = {}
-        
     },
-}
+    {'folke/noice.nvim',
+        event = "VeryLazy",
+        enabled = false,
+        opts = {},
+        dependencies = { "MunifTanjim/nui.nvim", "rcarriga/nvim-notify" },
+        config = function()
+        require("noice").setup{
+            lsp = {
+                -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
+                override = {
+                    ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+                    ["vim.lsp.util.stylize_markdown"] = true,
+                    ["cmp.entry.get_documentation"] = true, -- requires hrsh7th/nvim-cmp
+                },
+            },
+            -- you can enable a preset for easier configuration
+            presets = {
+                bottom_search = false, -- use a classic bottom cmdline for search
+                command_palette = false, -- position the cmdline and popupmenu together
+                long_message_to_split = true, -- long messages will be sent to a split
+                ntreinc_rename = false, -- enables an input dialog for inc-rename.nvim
+                lsp_doc_border = false, -- add a border to hover docs and signature help
+            },
+        }
+    end
+    },
+
+    {'mfussenegger/nvim-dap'},
+    {'rcarriga/nvim-dap-ui'},
+    {'nvimdev/dashboard-nvim',
+        event = 'VimEnter',
+        config = function()
+            require('dashboard').setup {
+                -- config
+            }
+        end,
+        dependencies = { {'nvim-tree/nvim-web-devicons'}}
+    },
+    {'nvim-tree/nvim-tree.lua',
+        config = function()
+            require('nvim-tree').setup{
+                sort = {
+                    sorter = "case_sensitive",
+                },
+                view = {
+                    width = 30,
+                },
+                renderer = {
+                    group_empty = true,
+                },
+                filters = {
+                    dotfiles = true,
+                },
+            }
+        end,
+    },
+    {'ckipp01/nvim-jenkinsfile-linter', 
+	dependecnies = { "nvim-lua/plenary.nvim" },
+    },
+} -- End of lazy config
+
+-- Debugger
+
+-- NvimTree
+local api = require('nvim-tree.api')
+vim.keymap.set('n', '<leader>t', api.tree.toggle, {})
 
 -- Telescope keymaps
 local builtin = require('telescope.builtin')
-vim.keymap.set('n', '<c-f>', builtin.find_files, {})
+vim.keymap.set('n', '<c-f>', builtin.git_files, {})
+vim.keymap.set('n', '<leader>f', builtin.find_files, {})
 vim.keymap.set('n', '<leader>g', builtin.live_grep, {})
 vim.keymap.set('n', '<leader>b', builtin.buffers, {})
-vim.keymap.set('n', '<leader>f', builtin.help_tags, {})
+vim.keymap.set('n', '<leader>h', builtin.help_tags, {})
 
