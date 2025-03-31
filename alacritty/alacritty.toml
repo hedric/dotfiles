@@ -21,8 +21,8 @@ size = 14
   style = "Bold Italic"
 
 [colors.primary]
-background = "0x0d0d0d"
-foreground = "0xb3b3b3"
+background = "0x070e12"
+foreground = "0xa9a9a9"
 ## foreground = "0xa9b1d6" [Tokyonight default]
 
 [colors.normal]
