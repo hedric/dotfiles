@@ -97,13 +97,14 @@ require("lazy").setup {
     { 'numToStr/Comment.nvim', opts = {} },
 
     {"navarasu/onedark.nvim",
-    enabled = true,
+    enabled = false,
     lazy = false, -- make sure we load this during startup if it is your main colorscheme
     priority = 1000, -- make sure to load this before all the other start plugins
     config = function()
         require("onedark").setup({
             style = 'darker',
-            transparent = 'true',
+            transparent = 'false',
+            term_colors = 'true',
 
             code_style = {
                 comments = 'none'
@@ -120,25 +121,95 @@ require("lazy").setup {
 
             },
         })
-        -- load the colorscheme here
-        vim.cmd([[colorscheme onedark]])
+        require('onedark').load()
+
     end,
     },
-    {"EdenEast/nightfox.nvim",
-    enabled = false,
+    {"folke/tokyonight.nvim",
     lazy = false, -- make sure we load this during startup if it is your main colorscheme
     priority = 1000, -- make sure to load this before all the other start plugins
     config = function()
-        require("nightfox").setup({})
+        require("tokyonight").setup({})
         -- load the colorscheme here
-        vim.cmd([[colorscheme carbonfox]])
     end,
+    },
+    {
+        "EdenEast/nightfox.nvim",
+        lazy = false,
+        priority = 1000,
+        config = function()
+            require('nightfox').setup({
+                options = {
+                    transparent = false,
+                    terminal_colors = true,
+                    module_default = true,
+                    styles = {
+                        comments = "NONE",
+                        conditionals = "NONE",
+                        constants = "NONE",
+                        functions = "NONE",
+                        keywords = "NONE",
+                        numbers = "NONE",
+                        operators = "NONE",
+                        strings = "NONE",
+                        types = "NONE",
+                        variables = "NONE",
+                    },
+                    inverse = {
+                        match_paren = false,
+                        visual = false,
+                        search = false,
+                    },
+                    -- List of various plugins and additional options
+                    modules = {
+                    },
+                },
+                palettes = {
+                    carbonfox = {
+                        green = "#3DCC98",
+                    },
+
+                },
+                specs = {
+                      all = {
+                          fg1 = "fg2",
+                          syntax = {
+                              preproc = "cyan.bright",
+                              variable = "fg2",
+                              keyword = "yellow.dim",
+                              func = "fg3",
+                              -- field = "fg2",
+                              type = "yellow.dim",
+                              -- ident = "fg2",
+                              -- const = "fg2",
+                              statement = "fg2",
+                              conditional = "fg3",
+                              -- dep = "fg3",
+                              builtin0 = "blue",
+                              builtin1 = "yellow.dim",
+                              operator = "fg2"
+                              --builtin2 = "fg3",
+                              --builtin3 = "fg3",
+                          },
+                    },
+                },
+                groups = {},
+            })
+            -- load the colorscheme here
+            vim.cmd([[colorscheme carbonfox]])
+        end,
+    },
+    {
+        "catgoose/nvim-colorizer.lua",
+        event = "BufReadPre",
+        opts = { -- set to setup table
+        },
     },
     {"nvim-lualine/lualine.nvim",
     opts = {
         options = {
             icons_enabled = false,
-            theme = 'onedark',
+            theme = 'codedark',
             component_separators = '|',
             section_separators = '',
             },
@@ -209,6 +280,7 @@ require("lazy").setup {
     end
     },
     { "nvim-treesitter/nvim-treesitter",
+        enabled = true,
         build = ":TSUpdate",
         config = function()
             require("nvim-treesitter.configs").setup {
@@ -282,7 +354,6 @@ require("lazy").setup {
     },
 } -- End of lazy config
 
--- Debugger
 
 -- NvimTree
 local api = require('nvim-tree.api')
@@ -295,4 +366,3 @@ vim.keymap.set('n', '<leader>f', builtin.find_files, {})
 vim.keymap.set('n', '<leader>g', builtin.live_grep, {})
 vim.keymap.set('n', '<leader>b', builtin.buffers, {})
 vim.keymap.set('n', '<leader>h', builtin.help_tags, {})
-
