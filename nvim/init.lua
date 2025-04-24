@@ -45,6 +45,10 @@ vim.opt.list = true
 -- Telescope freeze otherwise
 vim.opt.paste = false
 
+-- Mapleader
+vim.g.mapleader = " "
+vim.g.maplocalleader = " "
+
 -- Keybindings
 local keyopts = { noremap = true, silent = true}
 vim.keymap.set('n', '<c-h>', '<c-w>h', keyopts)
@@ -60,9 +64,8 @@ vim.keymap.set('n', 'L', '$', keyopts)
 vim.keymap.set('n', 'H', '^', keyopts)
 vim.keymap.set('n', 'L', '$', keyopts)
 vim.keymap.set('n', '<leader>w', ':w<CR>', keyopts)
+vim.keymap.set('n', '<leader>q', '<C-w>q', keyopts)
 vim.keymap.set('n', '<leader>,', ':set invlist<CR>', keyopts)
-vim.keymap.set('n', '<leader>r', ':source $MYVIMRC<CR>', keyopts)
-vim.keymap.set('n', '<leader>q', ':q<CR>', keyopts)
 -- Rebind annoying record with q to Q
 vim.keymap.set('n', 'Q', 'q', keyopts)
 vim.keymap.set('n', 'q', '<Nop>', keyopts)
@@ -87,24 +90,19 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
--- Mapleader
-vim.g.mapleader = ' '
-vim.g.maplocalleader = ' '
-
 require("lazy").setup {
     {"tpope/vim-fugitive"},
     {"chrisbra/vim-commentary"},
     { 'numToStr/Comment.nvim', opts = {} },
-
     {"navarasu/onedark.nvim",
-    enabled = false,
+    enabled = true,
     lazy = false, -- make sure we load this during startup if it is your main colorscheme
     priority = 1000, -- make sure to load this before all the other start plugins
     config = function()
         require("onedark").setup({
             style = 'darker',
-            transparent = 'false',
-            term_colors = 'true',
+            --transparent = '',
+            --terminal_colors = 'true',
 
             code_style = {
                 comments = 'none'
@@ -121,83 +119,10 @@ require("lazy").setup {
 
             },
         })
+        vim.cmd([[colorscheme onedark]])
         require('onedark').load()
 
     end,
-    },
-    {"folke/tokyonight.nvim",
-    lazy = false, -- make sure we load this during startup if it is your main colorscheme
-    priority = 1000, -- make sure to load this before all the other start plugins
-    config = function()
-        require("tokyonight").setup({})
-        -- load the colorscheme here
-    end,
-    },
-    {
-        "EdenEast/nightfox.nvim",
-        lazy = false,
-        priority = 1000,
-        config = function()
-            require('nightfox').setup({
-                options = {
-                    transparent = false,
-                    terminal_colors = true,
-                    module_default = true,
-                    styles = {
-                        comments = "NONE",
-                        conditionals = "NONE",
-                        constants = "NONE",
-                        functions = "NONE",
-                        keywords = "NONE",
-                        numbers = "NONE",
-                        operators = "NONE",
-                        strings = "NONE",
-                        types = "NONE",
-                        variables = "NONE",
-                    },
-                    inverse = {
-                        match_paren = false,
-                        visual = false,
-                        search = false,
-                    },
-                    -- List of various plugins and additional options
-                    modules = {
-                    },
-                },
-                palettes = {
-                    carbonfox = {
-                        green = "#3DCC98",
-                    },
-
-                },
-                specs = {
-                      all = {
-                          fg1 = "fg2",
-                          syntax = {
-                              preproc = "cyan.bright",
-                              variable = "fg2",
-                              keyword = "yellow.dim",
-                              func = "fg3",
-                              -- field = "fg2",
-                              type = "yellow.dim",
-                              -- ident = "fg2",
-                              -- const = "fg2",
-                              statement = "fg2",
-                              conditional = "fg3",
-                              -- dep = "fg3",
-                              builtin0 = "blue",
-                              builtin1 = "yellow.dim",
-                              operator = "fg2"
-                              --builtin2 = "fg3",
-                              --builtin3 = "fg3",
-                          },
-                    },
-                },
-                groups = {},
-            })
-            -- load the colorscheme here
-            vim.cmd([[colorscheme carbonfox]])
-        end,
     },
     {
         "catgoose/nvim-colorizer.lua",
@@ -209,7 +134,7 @@ require("lazy").setup {
     opts = {
         options = {
             icons_enabled = false,
-            theme = 'codedark',
+            theme = 'onedark',
             component_separators = '|',
             section_separators = '',
             },
@@ -226,102 +151,10 @@ require("lazy").setup {
     },
     },
 
-    -- LSP Support
-    {'VonHeikemen/lsp-zero.nvim',
-    branch = 'v2.x',
-    dependencies = {
-        {'neovim/nvim-lspconfig'},
-        {'williamboman/mason.nvim',
-        build = function()
-            pcall(vim.cmd, 'MasonUpdate')
-        end,
-        },
-        {'williamboman/mason-lspconfig.nvim'},
-
-        -- Autocompletion
-        {'hrsh7th/nvim-cmp'},     -- Required
-        {'hrsh7th/cmp-nvim-lsp'}, -- Required
-        {'L3MON4D3/LuaSnip'},     -- Required
-        },
-        config = function()
-            local lsp = require('lsp-zero').preset({})
-            lsp.ensure_installed({
-                'clangd',
-                'pyright',
-                'rust_analyzer',
-            })
-            lsp.on_attach(function(client, bufnr)
-            lsp.default_keymaps({buffer = bufnr})
-            end)
-            lsp.setup()
-
-            -- Autocompletion
-            local cmp = require('cmp')
-            cmp.setup({
-                mapping = {
-                    -- `Enter` key to confirm completion
-                    ['<CR>'] = cmp.mapping.confirm({select = false}),
-
-                    -- Ctrl+Space to trigger completion menu
-                    ['<C-Space>'] = cmp.mapping.complete(),
-                }
-            })
-        end
-    },
-    {'nvim-telescope/telescope.nvim', tag = '0.1.5',
-    dependencies = { 'nvim-lua/plenary.nvim' },
-    config = function()
-        require('telescope').setup {
-            defaults = {
-                file_sorter =  require'telescope.sorters'.get_fzy_sorter,
-                generic_sorter =  require'telescope.sorters'.get_fzy_sorter,
-            }
-        }
-    end
-    },
-    { "nvim-treesitter/nvim-treesitter",
-        enabled = true,
-        build = ":TSUpdate",
-        config = function()
-            require("nvim-treesitter.configs").setup {
-                ensure_installed = { "cpp", "c", "lua", "rust", "bash", "vimdoc", "lua"},
-                highlight = { enable = true, }
-            }
-        end
-    },
     {'windwp/nvim-autopairs',
         event = "InsertEnter",
         opts = {}
     },
-    {'folke/noice.nvim',
-        event = "VeryLazy",
-        enabled = false,
-        opts = {},
-        dependencies = { "MunifTanjim/nui.nvim", "rcarriga/nvim-notify" },
-        config = function()
-        require("noice").setup{
-            lsp = {
-                -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
-                override = {
-                    ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
-                    ["vim.lsp.util.stylize_markdown"] = true,
-                    ["cmp.entry.get_documentation"] = true, -- requires hrsh7th/nvim-cmp
-                },
-            },
-            -- you can enable a preset for easier configuration
-            presets = {
-                bottom_search = false, -- use a classic bottom cmdline for search
-                command_palette = false, -- position the cmdline and popupmenu together
-                long_message_to_split = true, -- long messages will be sent to a split
-                ntreinc_rename = false, -- enables an input dialog for inc-rename.nvim
-                lsp_doc_border = false, -- add a border to hover docs and signature help
-            },
-        }
-    end
-    },
-
-    {'mfussenegger/nvim-dap'},
-    {'rcarriga/nvim-dap-ui'},
     {'nvimdev/dashboard-nvim',
         event = 'VimEnter',
         config = function()
@@ -349,20 +182,38 @@ require("lazy").setup {
             }
         end,
     },
-    {'ckipp01/nvim-jenkinsfile-linter', 
-	dependecnies = { "nvim-lua/plenary.nvim" },
+    {'ibhagwan/fzf-lua',
+        config = function()
+            require('fzf-lua').setup {
+                keymap = {},
+            }
+        end,
+        dependencies = { "nvim-tree/nvim-web-devicons" },
+        opts = {}
     },
 } -- End of lazy config
-
 
 -- NvimTree
 local api = require('nvim-tree.api')
 vim.keymap.set('n', '<leader>t', api.tree.toggle, {})
 
--- Telescope keymaps
-local builtin = require('telescope.builtin')
-vim.keymap.set('n', '<c-f>', builtin.git_files, {})
-vim.keymap.set('n', '<leader>f', builtin.find_files, {})
-vim.keymap.set('n', '<leader>g', builtin.live_grep, {})
-vim.keymap.set('n', '<leader>b', builtin.buffers, {})
-vim.keymap.set('n', '<leader>h', builtin.help_tags, {})
+-- Fzf-lua keymaps
+vim.keymap.set({ "n", "v", "i" }, "<C-t>",
+  function() require("fzf-lua").complete_path() end,
+  { silent = true, desc = "fuzzy complete path" })
+
+vim.keymap.set({ "n", "v" }, "<C-f>",
+function() require("fzf-lua").git_files() end,
+{ silent = true, desc = "git ls-files" })
+
+vim.keymap.set({ "n", "v" }, "<leader>f",
+function() require("fzf-lua").files() end,
+{ silent = true, desc = "find or fd on a path" })
+
+vim.keymap.set({ "n", "v" }, "<leader>g",
+function() require("fzf-lua").live_grep() end,
+{ silent = true, desc = "live grep current project" })
+
+vim.keymap.set({ "n", "v" }, "<leader>b",
+function() require("fzf-lua").buffers() end,
+{ silent = true, desc = "open buffers" })
