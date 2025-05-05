@@ -27,6 +27,7 @@ EDITOR=nvim
 HISTFILE=~/.history-zsh
 HISTSIZE=10000
 SAVEHIST=10000
+setopt IGNORE_EOF               # Don't exit on end-of-line
 setopt SH_WORD_SPLIT            # Allow normal word splitting! IMPORTANT FOR YOCTO
 setopt append_history           # allow multiple sessions to append to one history
 setopt bang_hist                # treat ! special during command expansion
@@ -83,5 +84,5 @@ source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 # Install starship:
 # curl -sS https://starship.rs/install.sh | sh
 eval "$(starship init zsh)"
-
+export MANPAGER='nvim +Man!'
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
