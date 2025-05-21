@@ -1,6 +1,7 @@
 require("config.keymaps")
 require("config.options")
 require("config.lazy")
+require("config.filetypes")
 require("lazy").setup("plugins", {
   change_detection = {
     notify = false,

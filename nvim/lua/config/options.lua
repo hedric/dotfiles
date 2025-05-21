@@ -31,5 +31,8 @@ vim.opt.undofile = true
 vim.opt.scrolloff = 10
 vim.opt.updatetime = 50
 vim.opt.list = true
+vim.opt.foldenable = false
 -- Telescope freeze otherwise
 --vim.opt.paste = false
+vim.opt.clipboard = { 'unnamed', 'unnamedplus' }
+vim.o.winborder = 'rounded'

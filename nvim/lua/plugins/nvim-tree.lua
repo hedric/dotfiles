@@ -27,23 +27,5 @@ return {
       mode = { "n" },
       desc = "Toggle file explorer",
     },
-    {
-      "<leader>tf",
-      ":NvimTreeFindFileToggle<CR>",
-      mode = { "n" },
-      desc = "Toggle file explorer on current file",
-    },
-    {
-      "<leader>tc",
-      ":NvimTreeCollapse<CR>",
-      mode = { "n" },
-      desc = "Collapse file explorer",
-    },
-    {
-      "<leader>tr",
-      ":NvimTreeRefresh<CR>",
-      mode = { "n" },
-      desc = "Refresh file explorer"
-    },
   },
 }

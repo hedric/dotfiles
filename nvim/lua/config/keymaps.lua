@@ -25,3 +25,8 @@ vim.keymap.set({'n','x'}, 'cv', '"+p')
 vim.keymap.set('v', 'K', ":m '<-2<CR>gv=gv", keyopts)
 vim.keymap.set('v', 'J', ":m '>+1<CR>gv=gv", keyopts)
 
+-- Disable bindings
+vim.keymap.del('n', 'gra')
+vim.keymap.del('n', 'gri')
+vim.keymap.del('n', 'grr')
+vim.keymap.del('n', 'grn')
