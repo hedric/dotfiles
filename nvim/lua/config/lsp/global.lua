@@ -117,8 +117,8 @@ end
 
 local function configure_diagnostics()
   vim.diagnostic.config({
-    virtual_text = false,
-    virtual_lines = { current_line = true },
+    virtual_text = true,
+    --virtual_lines = { current_line = false },
     wrap = true,
     underline = false,
     update_in_insert = false,
@@ -152,3 +152,23 @@ vim.api.nvim_create_autocmd('LspAttach', {
 vim.lsp.config('*', {
   capabilities = require('cmp_nvim_lsp').default_capabilities(),
 })
+
+local function hide_diagnostics()
+    vim.diagnostic.config({  -- https://neovim.io/doc/user/diagnostic.html
+        virtual_text = false,
+        signs = false,
+        underline = false,
+    })
+end
+
+local function show_diagnostics()
+    vim.diagnostic.config({
+        virtual_text = true,
+        signs = true,
+        underline = true,
+    })
+end
+
+-- Hide
+vim.keymap.set("n", "<leader>dh", hide_diagnostics)
+vim.keymap.set("n", "<leader>ds", show_diagnostics)
