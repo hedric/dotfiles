@@ -11,7 +11,7 @@ return {
           "clangd",
           "pyright",
           "bashls",
-          "rust",
+          "rust-analyzer",
         },
         automatic_installation = true,
       })

@@ -32,6 +32,7 @@ vim.opt.scrolloff = 10
 vim.opt.updatetime = 50
 vim.opt.list = true
 vim.opt.foldenable = false
+vim.o.splitright = true
 -- Telescope freeze otherwise
 --vim.opt.paste = false
 vim.opt.clipboard = { 'unnamed', 'unnamedplus' }
