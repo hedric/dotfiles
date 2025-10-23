@@ -2,8 +2,8 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 -- Disable netrw because we are using nvim-tree
-vim.g.loaded_netrw = 1
-vim.g.loaded_netrwPlugin = 1
+--vim.g.loaded_netrw = 1
+--vim.g.loaded_netrwPlugin = 1
 vim.opt.hlsearch = false
 vim.opt.ignorecase = true
 vim.opt.incsearch = true
@@ -37,3 +37,4 @@ vim.o.splitright = true
 --vim.opt.paste = false
 vim.opt.clipboard = { 'unnamed', 'unnamedplus' }
 vim.o.winborder = 'rounded'
+

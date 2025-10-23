@@ -1,0 +1,68 @@
+{
+  "plugins": {
+    "black-metal-theme-neovim": {
+      "rev": "6d02078",
+      "src": "https://github.com/metalelf0/black-metal-theme-neovim"
+    },
+    "blink.cmp": {
+      "rev": "cb87357",
+      "src": "https://github.com/saghen/blink.cmp"
+    },
+    "lualine.nvim": {
+      "rev": "3946f01",
+      "src": "https://github.com/nvim-lualine/lualine.nvim"
+    },
+    "mason-lspconfig.nvim": {
+      "rev": "2304ff6",
+      "src": "https://github.com/mason-org/mason-lspconfig.nvim"
+    },
+    "mason.nvim": {
+      "rev": "ad7146a",
+      "src": "https://github.com/mason-org/mason.nvim"
+    },
+    "mini.pick": {
+      "rev": "96ee37d",
+      "src": "https://github.com/nvim-mini/mini.pick"
+    },
+    "nvim-autopairs": {
+      "rev": "7a2c97c",
+      "src": "https://github.com/windwp/nvim-autopairs"
+    },
+    "nvim-dap": {
+      "rev": "6782b09",
+      "src": "https://github.com/mfussenegger/nvim-dap"
+    },
+    "nvim-dap-ui": {
+      "rev": "cf91d5e",
+      "src": "https://github.com/rcarriga/nvim-dap-ui"
+    },
+    "nvim-lspconfig": {
+      "rev": "ac98db2",
+      "src": "https://github.com/neovim/nvim-lspconfig"
+    },
+    "nvim-nio": {
+      "rev": "21f5324",
+      "src": "https://github.com/nvim-neotest/nvim-nio"
+    },
+    "nvim-treesitter": {
+      "rev": "42fc28ba",
+      "src": "https://github.com/nvim-treesitter/nvim-treesitter"
+    },
+    "oil.nvim": {
+      "rev": "7194872",
+      "src": "https://github.com/stevearc/oil.nvim"
+    },
+    "onedark.nvim": {
+      "rev": "de495fa",
+      "src": "https://github.com/navarasu/onedark.nvim"
+    },
+    "onedarkpro.nvim": {
+      "rev": "eeac884",
+      "src": "https://github.com/olimorris/onedarkpro.nvim"
+    },
+    "vim-fugitive": {
+      "rev": "61b51c0",
+      "src": "https://github.com/tpope/vim-fugitive"
+    }
+  }
+}

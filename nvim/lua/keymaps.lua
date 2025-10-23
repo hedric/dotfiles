@@ -21,9 +21,12 @@ vim.keymap.set('n', 'q', '<Nop>', keyopts)
 vim.keymap.set({'n','x'}, 'cp', '"+y')
 vim.keymap.set({'n','x'}, 'cv', '"+p')
 
+-- Convent move for going from insert mode to eol insert mode
+vim.keymap.set('i', '<C-l>', '<Esc>g$a', keyopts)
+
 -- Move lines up and down (Primagen)
-vim.keymap.set('v', 'K', ":m '<-2<CR>gv=gv", keyopts)
-vim.keymap.set('v', 'J', ":m '>+1<CR>gv=gv", keyopts)
+--vim.keymap.set('v', 'K', ":m '<-2<CR>gv=gv", keyopts)
+--vim.keymap.set('v', 'J', ":m '>+1<CR>gv=gv", keyopts)
 
 -- Disable bindings
 vim.keymap.del('n', 'gra')
