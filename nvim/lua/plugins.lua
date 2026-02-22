@@ -13,6 +13,7 @@ vim.pack.add({
       { src = "https://github.com/rcarriga/nvim-dap-ui" },
       { src = "https://github.com/tpope/vim-fugitive" },
       { src = "https://github.com/navarasu/onedark.nvim" },
+      { src = "https://github.com/github/copilot.vim" },
 })
 
 -- Code completion

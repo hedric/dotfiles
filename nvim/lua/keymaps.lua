@@ -33,3 +33,11 @@ vim.keymap.del('n', 'gra')
 vim.keymap.del('n', 'gri')
 vim.keymap.del('n', 'grr')
 vim.keymap.del('n', 'grn')
+
+-- 10 lines per scroll tick
+vim.keymap.set("n", "<ScrollWheelUp>", "5<C-y>", { silent = true })
+vim.keymap.set("n", "<ScrollWheelDown>", "5<C-e>", { silent = true })
+
+-- (optional) same behavior in visual mode
+vim.keymap.set("v", "<ScrollWheelUp>", "5<C-y>", { silent = true })
+vim.keymap.set("v", "<ScrollWheelDown>", "5<C-e>", { silent = true })

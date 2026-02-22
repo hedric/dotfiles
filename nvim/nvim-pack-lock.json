@@ -8,6 +8,10 @@
       "rev": "cb87357",
       "src": "https://github.com/saghen/blink.cmp"
     },
+    "copilot.vim": {
+      "rev": "a12fd56",
+      "src": "https://github.com/github/copilot.vim"
+    },
     "lualine.nvim": {
       "rev": "3946f01",
       "src": "https://github.com/nvim-lualine/lualine.nvim"

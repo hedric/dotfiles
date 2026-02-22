@@ -11,7 +11,7 @@ vim.opt.cursorline = true
 vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.smartindent = true
-vim.opt.expandtab = true
+vim.opt.expandtab = false
 vim.opt.softtabstop = 4
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
@@ -30,7 +30,7 @@ vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
 vim.opt.undofile = true
 vim.opt.scrolloff = 10
 vim.opt.updatetime = 50
-vim.opt.list = true
+vim.opt.list = false
 vim.opt.foldenable = false
 vim.o.splitright = true
 -- Telescope freeze otherwise
