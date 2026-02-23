@@ -1,10 +1,12 @@
 vim.pack.add({
       { src = "https://github.com/neovim/nvim-lspconfig" },
       { src = "https://github.com/mason-org/mason.nvim" },
-      { src = "https://github.com/Saghen/blink.cmp", dependencies = { "rafamadriz/friendly-snippets" }},
+      { src = "https://github.com/Saghen/blink.cmp"},
+      { src = "https://github.com/rafamadriz/friendly-snippets" },
       { src = "https://github.com/stevearc/oil.nvim" },
       { src = "https://github.com/metalelf0/black-metal-theme-neovim" },
       { src = "https://github.com/nvim-treesitter/nvim-treesitter" },
+      { src = "https://github.com/nvim-lua/plenary.nvim" },
       { src = "https://github.com/nvim-lualine/lualine.nvim" },
       { src = "https://github.com/nvim-mini/mini.pick" },
       { src = "https://github.com/windwp/nvim-autopairs" },
@@ -13,8 +15,10 @@ vim.pack.add({
       { src = "https://github.com/rcarriga/nvim-dap-ui" },
       { src = "https://github.com/tpope/vim-fugitive" },
       { src = "https://github.com/navarasu/onedark.nvim" },
-      { src = "https://github.com/github/copilot.vim" },
+      { src = "https://github.com/olimorris/codecompanion.nvim" },
 })
+
+require("codecompanion").setup({})
 
 -- Code completion
 -- cd ~/.local/share/nvim/site/pack/core/opt/blink.cmp
